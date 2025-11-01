@@ -1,0 +1,11 @@
+{
+  "login": "Login",
+  "enterName": "Enter Your Name",
+  "loginButton": "LOGIN",
+  "dashboard": "Dashboard",
+  "logout": "Logout",
+  "searchCity": "Search City",
+  "temperature": "Temperature",
+  "humidity": "Humidity",
+  "weather": "Weather"
+}

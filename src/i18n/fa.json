@@ -1,0 +1,11 @@
+{
+  "login": "ورود",
+  "enterName": "نام خود را وارد کنید",
+  "loginButton": "ورود",
+  "dashboard": "داشبورد",
+  "logout": "خروج",
+  "searchCity": "جستجوی شهر",
+  "temperature": "دما",
+  "humidity": "رطوبت",
+  "weather": "آب و هوا"
+}
