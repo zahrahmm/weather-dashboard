@@ -4,8 +4,17 @@
   "loginButton": "ورود",
   "dashboard": "داشبورد",
   "logout": "خروج",
-  "searchCity": "جستجوی شهر",
+  "searchCity": "شهر خود را انتخاب کنید",
   "temperature": "دما",
   "humidity": "رطوبت",
-  "weather": "آب و هوا"
+  "weather": "آب و هوا",
+  "mode": "حالت نمایش",
+  "light": "روشن",
+  "dark": "تاریک",
+  "language": "زبان",
+  "exit": "خروج",
+  "weatherDashboard": "داشبورد آب و هوا",
+  "footerRights": ".همه حقوق این سایت برای شرکت مهندسی نادین صدر آریا محفوظ است",
+  "footerContact": "تماس با ما : info@nadin.ir",
+  "footerDate": "12.25 شنبه 2 دی 140"
 }

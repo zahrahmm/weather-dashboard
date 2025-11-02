@@ -3,8 +3,11 @@
 
 :root {
   --color-primary: #2196f3;
-  --color-gray-900: #050f24;
+  --color-gray-dark: #050f24;
+  --color-gray-light: #bbc1c4;
   --color-light-blue: #f3fafe;
+  --color-primary-blue: #009cd8;
+  --color-light-blue-alt: #cfedfa;
 }
 
 .bg-primary {

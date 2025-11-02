@@ -4,8 +4,17 @@
   "loginButton": "LOGIN",
   "dashboard": "Dashboard",
   "logout": "Logout",
-  "searchCity": "Search City",
+  "searchCity": "Select Your City",
   "temperature": "Temperature",
   "humidity": "Humidity",
-  "weather": "Weather"
+  "weather": "Weather",
+  "mode": "Mode",
+  "light": "Light",
+  "dark": "Dark",
+  "language": "Language",
+  "exit": "Exit",
+  "weatherDashboard": "Weather Dashboard",
+  "footerRights": "All rights of this site are reserved for Nadin Sadr Aria Engineering Company.",
+  "footerContact": "contact us : info@nadin.ir",
+  "footerDate": "12:25 . Monday 23 December 2023"
 }
