@@ -8,10 +8,23 @@
   --color-light-blue: #f3fafe;
   --color-primary-blue: #009cd8;
   --color-light-blue-alt: #cfedfa;
+  --color-gray-blue: #cdd9e0;
+  --color-light-gray-blue: #e1e9ee;
+  --color-gray-dark-2: #3d4852;
 }
 
 .bg-primary {
   background-color: var(--color-primary);
+}
+.bg-gray-blue {
+  background-color: var(--color-gray-blue);
+}
+.light-gray-blue {
+  background-color: var(--color-light-gray-blue);
+}
+
+.gray-dark-2 {
+  color: var(--color-gray-dark-2);
 }
 
 body {

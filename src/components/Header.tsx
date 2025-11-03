@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import logo from "../assets/image 1.svg";
 import SettingsMenu from "./SettingsMenu";
@@ -16,31 +15,39 @@ const cities = [
   "Beijing",
 ];
 
-const Header = () => {
-  const [selectedCity, setSelectedCity] = useState<string>("");
+interface HeaderProps {
+  selectedCity: string;
+  setSelectedCity: (city: string) => void;
+}
+
+const Header = ({ selectedCity, setSelectedCity }: HeaderProps) => {
   const { t, i18n } = useTranslation();
 
   return (
     <header
-      className={`flex items-center justify-between py-3 px-6 shadow-[0_4px_10px_rgba(0,0,0,0.15)] ${
+      className={`flex items-center justify-between py-3 px-6 shadow-[0_4px_10px_rgba(0,0,0,0.15)] bg-white ${
         i18n.language === "en" ? "flex-row" : "flex-row-reverse"
       }`}
     >
+      {/* Logo + Title */}
       <div
         className={`flex items-center gap-2 ${
           i18n.language === "en" ? "flex-row" : "flex-row-reverse"
         }`}
       >
-        <img src={logo} alt="Logo" />
-        <h2 className="text-[12px] leading-[150%]">{t("weatherDashboard")}</h2>
+        <img src={logo} alt="Logo" className="h-8 w-auto" />
+        <h2 className="text-sm font-semibold text-gray-700">
+          {t("weatherDashboard")}
+        </h2>
       </div>
 
+      {/* City Selector + Settings */}
       <div
-        className={`flex gap-5 ${
+        className={`flex items-center gap-5 ${
           i18n.language === "en" ? "flex-row" : "flex-row-reverse"
         }`}
       >
-        <FormControl fullWidth sx={{ minWidth: 300 }}>
+        <FormControl fullWidth sx={{ minWidth: 200 }}>
           <InputLabel id="city-select-label">{t("searchCity")}</InputLabel>
           <Select
             labelId="city-select-label"
