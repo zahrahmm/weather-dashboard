@@ -6,11 +6,12 @@ import { useTranslation } from "react-i18next";
 interface MonthlyTemp {
   month: string;
   temp: number;
+  [key: string]: string | number;
 }
 
 const MonthlyTempChart = ({ city }: { city: string }) => {
   const { t, i18n } = useTranslation();
-  const [dataset, setDataset] = useState<MonthlyTemp[]>([]);
+  const [dataset, setDataset] = useState<readonly MonthlyTemp[]>([]);
   const isFarsi = i18n.language === "fa";
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const MonthlyTempChart = ({ city }: { city: string }) => {
     const months = isFarsi ? [...monthsFa].reverse() : monthsEn;
     const temps = [15, 25, 22, 18, 26, 24, 32, 30, 34, 28, 27, 29];
 
-    const data: MonthlyTemp[] = months.map((month, i) => ({
+    const data = months.map((month, i) => ({
       month,
       temp: isFarsi ? temps[temps.length - 1 - i] : temps[i],
     }));
@@ -101,7 +102,7 @@ const MonthlyTempChart = ({ city }: { city: string }) => {
             showMark: false,
           },
         ]}
-        height={180}
+        height={175}
         grid={{ horizontal: true }}
         sx={{
           direction: isFarsi ? "rtl" : "ltr",

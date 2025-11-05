@@ -13,16 +13,16 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col min-h-screen justify-between">
       <Header selectedCity={selectedCity} setSelectedCity={setSelectedCity} />
-      <main className="grow px-6 py-6 mb-20">
+      <main className="grow px-4 sm:px-6 py-6 mb-20">
         <div
-          className={`flex  gap-10 justify-center items-center mb-7 ${
-            i18n.language === "fa" ? "flex-row-reverse" : "flex-row"
+          className={`flex flex-col lg:flex-row gap-8 lg:gap-10 justify-center items-center mb-7 ${
+            i18n.language === "fa" ? "lg:flex-row-reverse" : "lg:flex-row"
           }`}
         >
-          <div className="basis-2/5">
+          <div className="w-full lg:basis-2/5">
             <WeatherInfo selectedCity={selectedCity} />
           </div>
-          <div className="basis-3/5">
+          <div className="w-full lg:basis-3/5">
             <MonthlyTempChart city={selectedCity} />
           </div>
         </div>

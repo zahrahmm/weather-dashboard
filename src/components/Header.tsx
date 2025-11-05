@@ -25,15 +25,13 @@ const Header = ({ selectedCity, setSelectedCity }: HeaderProps) => {
 
   return (
     <header
-      className={`flex items-center justify-between py-3 px-6 shadow-[0_4px_10px_rgba(0,0,0,0.15)] bg-white ${
-        i18n.language === "en" ? "flex-row" : "flex-row-reverse"
-      }`}
+      className={`flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0 py-3 px-6 
+      shadow-[0_4px_10px_rgba(0,0,0,0.15)] bg-white
+      ${i18n.language === "en" ? "md:flex-row" : "md:flex-row-reverse"}`}
     >
-      {/* Logo + Title */}
       <div
-        className={`flex items-center gap-2 ${
-          i18n.language === "en" ? "flex-row" : "flex-row-reverse"
-        }`}
+        className={`flex items-center gap-2 
+        ${i18n.language === "en" ? "flex-row" : "flex-row-reverse"}`}
       >
         <img src={logo} alt="Logo" className="h-8 w-auto" />
         <h2 className="text-sm font-semibold text-gray-700">
@@ -41,11 +39,9 @@ const Header = ({ selectedCity, setSelectedCity }: HeaderProps) => {
         </h2>
       </div>
 
-      {/* City Selector + Settings */}
       <div
-        className={`flex items-center gap-5 ${
-          i18n.language === "en" ? "flex-row" : "flex-row-reverse"
-        }`}
+        className={`flex flex-col sm:flex-row items-center gap-3 sm:gap-5 w-full md:w-auto
+        ${i18n.language === "en" ? "sm:flex-row" : "sm:flex-row-reverse"}`}
       >
         <FormControl fullWidth sx={{ minWidth: 200 }}>
           <InputLabel id="city-select-label">{t("searchCity")}</InputLabel>

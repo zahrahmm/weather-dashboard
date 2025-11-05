@@ -56,12 +56,18 @@ const TwoWeeksForecast = ({ city }: { city: string }) => {
         );
 
         const dailyData = forecastRes.data.list.filter(
-          (_: any, index: number) => index % 8 === 0
+          (_: unknown, index: number) => index % 8 === 0
         );
 
-        const formattedData: ForecastDay[] = dailyData
-          .slice(0, 5)
-          .map((item: any, i: number) => {
+        const formattedData: ForecastDay[] = dailyData.slice(0, 5).map(
+          (
+            item: {
+              dt: number;
+              main: { temp: number };
+              weather: { main: string; description: string }[];
+            },
+            i: number
+          ) => {
             const date = new Date(item.dt * 1000);
 
             let dayName;
@@ -76,11 +82,12 @@ const TwoWeeksForecast = ({ city }: { city: string }) => {
             return {
               date: dayName,
               temp: Math.round(item.main.temp),
-              icon: item.weather[0].icon,
+              icon: item.weather[0].main,
               main: item.weather[0].main,
               description: item.weather[0].description,
             };
-          });
+          }
+        );
 
         const fakeDays: ForecastDay[] = Array.from({ length: 9 }).map(
           (_, i) => ({
@@ -100,7 +107,7 @@ const TwoWeeksForecast = ({ city }: { city: string }) => {
     };
 
     fetchForecast();
-  }, [city, i18n.language]);
+  }, [city, i18n.language, daysFa, isFarsi, t]);
 
   const getWeatherIcon = (main: string, description: string) => {
     const desc = description.toLowerCase();
@@ -152,7 +159,7 @@ const TwoWeeksForecast = ({ city }: { city: string }) => {
           {forecast.map((day, index) => (
             <div
               key={index}
-              className="flex flex-col items-center justify-between gap-7 px-4 py-5.5 rounded-3xl bg-gray-blue flex-shrink-0 transition hover:scale-105 w-26"
+              className="flex flex-col items-center justify-between gap-7 px-4 py-5.5 rounded-3xl bg-gray-blue shrink-0 transition hover:scale-105 w-26"
             >
               <Typography
                 variant="body2"

@@ -114,17 +114,11 @@ const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
 
     const formattedDay = localTime.toLocaleDateString(
       i18n.language === "fa" ? "fa-IR" : "en-US",
-      {
-        weekday: "long",
-      }
+      { weekday: "long" }
     );
     const formattedDate = localTime.toLocaleDateString(
       i18n.language === "fa" ? "fa-IR" : "en-US",
-      {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }
+      { day: "numeric", month: "long", year: "numeric" }
     );
     const formattedTime = localTime.toLocaleTimeString([], {
       hour: "2-digit",
@@ -153,20 +147,21 @@ const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
   return (
     <div
       dir={i18n.language === "fa" ? "rtl" : "ltr"}
-      className={`light-gray-blue rounded-3xl px-6 py-6 flex justify-between items-center shadow-[0_4px_10px_rgba(0,0,0,0.15)] ${
+      className={`light-gray-blue rounded-3xl px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-[0_4px_10px_rgba(0,0,0,0.15)] ${
         i18n.language === "fa" ? "text-right" : "text-left"
       }`}
     >
+      {/* بخش اطلاعات */}
       <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2 bg-gray-blue px-3 py-3 w-fit rounded-[50px]">
+        <div className="flex items-center gap-2 bg-gray-blue px-3 py-3 w-fit rounded-[50px] mx-auto sm:mx-0">
           <LocationOnIcon />
           <h2 className="gray-dark-2">{cityName}</h2>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 text-center sm:text-start">
           <div>
             <p className="font-medium text-[32px]">{formattedDay}</p>
-            <p className="text-sm flex items-center gap-2">
+            <p className="text-sm flex justify-center sm:justify-start items-center gap-2">
               {formattedDate}{" "}
               <span>
                 {formattedTime} {i18n.language === "fa" && period}
@@ -191,7 +186,8 @@ const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-evenly text-center">
+      {/* بخش آیکن و وضعیت */}
+      <div className="flex flex-col items-center justify-center text-center">
         <div className="flex items-center justify-center">
           {getWeatherIcon(
             weatherData.weather[0].main,
