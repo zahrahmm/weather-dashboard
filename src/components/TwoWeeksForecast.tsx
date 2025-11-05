@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
+import { ColorModeContext } from "../context/ColorModeContext";
 
 import Clouds from "../assets/Frame 32.svg";
 import Thunderstorm from "../assets/Frame 34.svg";
@@ -22,6 +24,7 @@ const TwoWeeksForecast = ({ city }: { city: string }) => {
   const [forecast, setForecast] = useState<ForecastDay[]>([]);
   const [error, setError] = useState<string>("");
   const { t, i18n } = useTranslation();
+  const { darkMode } = useContext(ColorModeContext);
 
   const isFarsi = i18n.language === "fa";
 
@@ -125,16 +128,17 @@ const TwoWeeksForecast = ({ city }: { city: string }) => {
 
   return (
     <div
-      className={`light-gray-blue rounded-3xl px-5 py-6 mt-4 ${
-        isFarsi ? "rtl" : "ltr"
-      }`}
+      className={`rounded-3xl px-5 py-6 mt-4 ${
+        darkMode
+          ? "bg-[#292F45] text-[#F3F4F7]  "
+          : "light-gray-blue text-[#1B2767]  "
+      } ${isFarsi ? "rtl" : "ltr"}`}
       dir={isFarsi ? "rtl" : "ltr"}
     >
       <Typography
         variant="h6"
         sx={{
           fontWeight: 700,
-          color: "#1B2767",
           fontSize: "18px",
           mb: 2,
           textAlign: isFarsi ? "right" : "left",
@@ -159,14 +163,17 @@ const TwoWeeksForecast = ({ city }: { city: string }) => {
           {forecast.map((day, index) => (
             <div
               key={index}
-              className="flex flex-col items-center justify-between gap-7 px-4 py-5.5 rounded-3xl bg-gray-blue shrink-0 transition hover:scale-105 w-26"
+              className={`flex flex-col items-center justify-between gap-7 px-4 py-5.5 rounded-3xl  shrink-0 transition hover:scale-105 w-26 ${
+                darkMode
+                  ? "bg-[#3F4861] text-[#F3F4F7]  "
+                  : "bg-gray-blue text-[#003464]  "
+              }`}
             >
               <Typography
                 variant="body2"
                 sx={{
                   fontWeight: 600,
                   textAlign: "center",
-                  color: "#1B2767",
                   width: "100%",
                   position: "relative",
                   pb: "10px",
@@ -191,10 +198,7 @@ const TwoWeeksForecast = ({ city }: { city: string }) => {
                 className="w-12 h-12"
               />
 
-              <Typography
-                variant="body2"
-                sx={{ fontWeight: 600, color: "#1B2767" }}
-              >
+              <Typography variant="body2" sx={{ fontWeight: 600 }}>
                 {day.temp}°C
               </Typography>
             </div>

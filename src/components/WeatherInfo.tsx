@@ -5,6 +5,8 @@ import Thunderstorm from "../assets/Frame 34.svg";
 import Clear from "../assets/Frame 34(1).svg";
 import PartlyCloudy from "../assets/image 7.svg";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
+import { ColorModeContext } from "../context/ColorModeContext";
 
 interface WeatherMain {
   temp: number;
@@ -28,6 +30,7 @@ interface WeatherInfoProps {
 
 const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
   const { t, i18n } = useTranslation();
+  const { darkMode } = useContext(ColorModeContext);
   const [weatherData, setWeatherData] = useState<Weather | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -147,14 +150,17 @@ const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
   return (
     <div
       dir={i18n.language === "fa" ? "rtl" : "ltr"}
-      className={`light-gray-blue rounded-3xl px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-[0_4px_10px_rgba(0,0,0,0.15)] ${
-        i18n.language === "fa" ? "text-right" : "text-left"
-      }`}
+      className={`rounded-3xl px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-[0_4px_10px_rgba(0,0,0,0.15)] ${
+        darkMode
+          ? "bg-[#292F45] text-[#F3F4F7]  "
+          : "light-gray-blue text-[#003464]  "
+      } ${i18n.language === "fa" ? "text-right" : "text-left"}`}
     >
-      {/* بخش اطلاعات */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2 bg-gray-blue px-3 py-3 w-fit rounded-[50px] mx-auto sm:mx-0">
-          <LocationOnIcon />
+          <LocationOnIcon
+            className={` ${darkMode ? "text-[#3D4852]  " : " "} `}
+          />
           <h2 className="gray-dark-2">{cityName}</h2>
         </div>
 
@@ -186,7 +192,6 @@ const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
         </div>
       </div>
 
-      {/* بخش آیکن و وضعیت */}
       <div className="flex flex-col items-center justify-center text-center">
         <div className="flex items-center justify-center">
           {getWeatherIcon(

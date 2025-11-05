@@ -16,11 +16,13 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import i18n from "../i18n";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
+import { ColorModeContext } from "../context/ColorModeContext";
 
 const SettingsMenu = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const { darkMode, toggleDarkMode } = useContext(ColorModeContext);
   const [language, setLanguage] = useState<"fa" | "en">("en");
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -90,7 +92,9 @@ const SettingsMenu = () => {
           >
             {/* Light */}
             <Box
-              onClick={() => setTheme("light")}
+              onClick={() => {
+                if (darkMode) toggleDarkMode();
+              }}
               sx={{
                 display: "flex",
                 gap: 1,
@@ -100,15 +104,13 @@ const SettingsMenu = () => {
             >
               <WbSunnyOutlinedIcon
                 sx={{
-                  color:
-                    theme === "light" ? "var(--color-primary-blue)" : "gray",
+                  color: !darkMode ? "var(--color-primary-blue)" : "gray",
                 }}
               />
               <Typography
                 variant="body2"
                 sx={{
-                  color:
-                    theme === "light" ? "var(--color-primary-blue)" : "gray",
+                  color: !darkMode ? "var(--color-primary-blue)" : "gray",
                 }}
               >
                 {t("light")}
@@ -119,7 +121,9 @@ const SettingsMenu = () => {
 
             {/* Dark */}
             <Box
-              onClick={() => setTheme("dark")}
+              onClick={() => {
+                if (!darkMode) toggleDarkMode();
+              }}
               sx={{
                 display: "flex",
                 gap: 1,
@@ -129,15 +133,13 @@ const SettingsMenu = () => {
             >
               <BedtimeOutlinedIcon
                 sx={{
-                  color:
-                    theme === "dark" ? "var(--color-primary-blue)" : "gray",
+                  color: darkMode ? "var(--color-primary-blue)" : "gray",
                 }}
               />
               <Typography
                 variant="body2"
                 sx={{
-                  color:
-                    theme === "dark" ? "var(--color-primary-blue)" : "gray",
+                  color: darkMode ? "var(--color-primary-blue)" : "gray",
                 }}
               >
                 {t("dark")}

@@ -35,7 +35,15 @@ cd weather-dashboard
 
 ---
 
-### Create a .env file in the root of project and add OpenWeather API key:
+## Create a .env file in the root of project and add OpenWeather API key:
 
 VITE_OPENWEATHER_API_KEY=6202fc8475da4154f30e341cf4f77c1a
 ```
+
+---
+
+<!-- Live Demo -->
+
+## View on Vercel
+
+https://weather-dashboard-sepia-nine.vercel.app

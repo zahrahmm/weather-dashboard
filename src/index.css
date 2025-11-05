@@ -26,8 +26,3 @@
 .gray-dark-2 {
   color: var(--color-gray-dark-2);
 }
-
-body {
-  font-family: "Roboto", sans-serif;
-  background-color: var(--color-light-blue);
-}

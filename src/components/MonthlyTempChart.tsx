@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
+import { ColorModeContext } from "../context/ColorModeContext";
 
 interface MonthlyTemp {
   month: string;
@@ -11,6 +13,7 @@ interface MonthlyTemp {
 
 const MonthlyTempChart = ({ city }: { city: string }) => {
   const { t, i18n } = useTranslation();
+  const { darkMode } = useContext(ColorModeContext);
   const [dataset, setDataset] = useState<readonly MonthlyTemp[]>([]);
   const isFarsi = i18n.language === "fa";
 
@@ -58,9 +61,11 @@ const MonthlyTempChart = ({ city }: { city: string }) => {
 
   return (
     <div
-      className={`light-gray-blue rounded-3xl px-5 py-6 overflow-x-auto ${
-        isFarsi ? "text-right" : "text-left"
-      }`}
+      className={` rounded-3xl px-5 py-6 overflow-x-auto  ${
+        darkMode
+          ? "bg-[#292F45] text-[#F3F4F7]  "
+          : "light-gray-blue text-[#1B2767]  "
+      }  ${isFarsi ? "text-right" : "text-left"}`}
       dir={isFarsi ? "rtl" : "ltr"}
     >
       <Typography
@@ -68,7 +73,6 @@ const MonthlyTempChart = ({ city }: { city: string }) => {
         gutterBottom
         sx={{
           fontWeight: 700,
-          color: "#1B2767",
           fontSize: "18px",
           mb: 1,
         }}
@@ -107,7 +111,6 @@ const MonthlyTempChart = ({ city }: { city: string }) => {
         sx={{
           direction: isFarsi ? "rtl" : "ltr",
           "& .MuiChartsAxis-tickLabel": {
-            fill: "#1B2767",
             fontSize: 10,
           },
           "& .MuiChartsAxis-line": {
