@@ -8,7 +8,7 @@ const Footer = () => {
 
   return (
     <footer
-      className={`flex justify-between px-6 py-7 bg-gradient-to-r from-[#F3FAFE] via-[rgba(204,221,221,0.62)] to-[#F3FAFE] ${
+      className={`flex justify-between px-6 py-7 bg-linear-to-r from-[#F3FAFE] via-[rgba(204,221,221,0.62)] to-[#F3FAFE] ${
         i18n.language === "fa" ? "flex-row-reverse" : "flex-row"
       }`}
     >

@@ -14,7 +14,15 @@
   "language": "زبان",
   "exit": "خروج",
   "weatherDashboard": "داشبورد آب و هوا",
+  "twoWeeksForecast": "پیش‌بینی دو هفته آینده",
+  "today": "امروز",
+  "cityNotFound": "شهر پیدا نشد",
+  "failedToFetch": "دریافت اطلاعات آب‌وهوا ناموفق بود",
   "footerRights": ".همه حقوق این سایت برای شرکت مهندسی نادین صدر آریا محفوظ است",
   "footerContact": "تماس با ما : info@nadin.ir",
-  "footerDate": "12.25 شنبه 2 دی 140"
+  "footerDate": "۱۲:۲۵ . دوشنبه ۲۳ دسامبر ۲۰۲۳",
+  "AverageMonthlyTemperature": "میانگین دمای ماهانه",
+  "High": "بیشینه",
+  "Low": "کمینه",
+  "FeelsLike": "درجه احساس می شود"
 }

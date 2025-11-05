@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
       <div
-        className={`flex flex-col md:flex-row rounded-[12px] max-w-[960px] mx-auto mb-10 
+        className={`flex flex-col md:flex-row rounded-[12px]  mx-auto pl-5 mb-10 
   ${
     language === "Persian"
       ? "md:flex-row-reverse"
@@ -39,7 +39,7 @@ const Login = () => {
       >
         <form
           onSubmit={handleSubmit}
-          className={`flex flex-col justify-between w-1/2 px-6 py-8 h-[420px]${
+          className={`flex flex-col justify-between  flex-1 px-6 py-8 h-[420px]${
             language === "Persian"
               ? "bg-white shadow-[0_4px_8px_rgba(0,0,0,0.25)] "
               : ""
@@ -74,7 +74,7 @@ const Login = () => {
           </Button>
         </form>
 
-        <div className="hidden md:block w-1/2 ">
+        <div className="hidden md:block flex-1 ">
           <img src={loginImage} alt="Login" className="w-full object-contain" />
         </div>
       </div>

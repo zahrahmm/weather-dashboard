@@ -4,6 +4,7 @@ import Clouds from "../assets/Frame 32.svg";
 import Thunderstorm from "../assets/Frame 34.svg";
 import Clear from "../assets/Frame 34(1).svg";
 import PartlyCloudy from "../assets/image 7.svg";
+import { useTranslation } from "react-i18next";
 
 interface WeatherMain {
   temp: number;
@@ -26,11 +27,29 @@ interface WeatherInfoProps {
 }
 
 const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
+  const { t, i18n } = useTranslation();
   const [weatherData, setWeatherData] = useState<Weather | null>(null);
-
   const [loading, setLoading] = useState(false);
 
   const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+
+  const cityNamesFa: Record<string, string> = {
+    Tehran: "تهران",
+  };
+
+  const weatherTranslations: Record<string, string> = {
+    Clear: "صاف",
+    Clouds: "ابری",
+    Rain: "بارانی",
+    Snow: "برفی",
+    Thunderstorm: "رعد و برق",
+    Drizzle: "نم‌نم باران",
+    Mist: "مه‌آلود",
+    Haze: "غبارآلود",
+    Fog: "مه",
+    Dust: "گرد و غبار",
+    Smoke: "دودآلود",
+  };
 
   useEffect(() => {
     if (!selectedCity) return;
@@ -39,15 +58,13 @@ const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&appid=${API_KEY}&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&appid=${API_KEY}&units=metric&lang=${
+            i18n.language === "fa" ? "fa" : "en"
+          }`
         );
         const data = await response.json();
-        console.log("API DATA:", data);
-        if (data.cod === 200) {
-          setWeatherData(data);
-        } else {
-          setWeatherData(null);
-        }
+        if (data.cod === 200) setWeatherData(data);
+        else setWeatherData(null);
       } catch (error) {
         console.error("Error fetching weather:", error);
       } finally {
@@ -56,19 +73,16 @@ const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
     };
 
     fetchWeather();
-  }, [selectedCity, API_KEY]);
+  }, [selectedCity, API_KEY, i18n.language]);
 
-  if (loading) {
+  if (loading)
     return <div className="text-center text-gray-500 py-4">Loading...</div>;
-  }
-
-  if (!weatherData) {
+  if (!weatherData)
     return (
       <div className="text-center text-gray-500 py-4">
         No data available for "{selectedCity}"
       </div>
     );
-  }
 
   const getWeatherIcon = (main: string, description: string) => {
     if (main === "Clear") return <img src={Clear} alt="Clear" />;
@@ -85,62 +99,112 @@ const WeatherInfo = ({ selectedCity }: WeatherInfoProps) => {
       Date.now() + new Date().getTimezoneOffset() * 60000
     );
     const localTime = new Date(nowUTC.getTime() + timezone * 1000);
-    const formattedDay = localTime.toLocaleDateString("en-US", {
-      weekday: "long",
-    });
 
-    const formattedDate = localTime.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
+    const hours = localTime.getHours();
+    let period = "";
+
+    if (i18n.language === "fa") {
+      if (hours < 12) period = "صبح";
+      else if (hours < 17) period = "ظهر";
+      else if (hours < 20) period = "عصر";
+      else period = "شب";
+    } else {
+      period = hours < 12 ? "AM" : "PM";
+    }
+
+    const formattedDay = localTime.toLocaleDateString(
+      i18n.language === "fa" ? "fa-IR" : "en-US",
+      {
+        weekday: "long",
+      }
+    );
+    const formattedDate = localTime.toLocaleDateString(
+      i18n.language === "fa" ? "fa-IR" : "en-US",
+      {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }
+    );
     const formattedTime = localTime.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
+      hour12: false,
     });
-    return { formattedDate, formattedTime, formattedDay };
+
+    return { formattedDate, formattedTime, formattedDay, period };
   };
 
-  const { formattedDate, formattedTime, formattedDay } = getLocalTime(
+  const { formattedDate, formattedTime, formattedDay, period } = getLocalTime(
     weatherData.timezone
   );
 
+  const cityName =
+    i18n.language === "fa" && cityNamesFa[weatherData.name]
+      ? cityNamesFa[weatherData.name]
+      : weatherData.name;
+
+  const weatherMain =
+    i18n.language === "fa"
+      ? weatherTranslations[weatherData.weather[0].main] ||
+        weatherData.weather[0].main
+      : weatherData.weather[0].main;
+
   return (
-    <div className="light-gray-blue rounded-3xl px-5 py-6 flex gap-34 shadow-[0_4px_10px_rgba(0,0,0,0.15)]">
+    <div
+      dir={i18n.language === "fa" ? "rtl" : "ltr"}
+      className={`light-gray-blue rounded-3xl px-6 py-6 flex justify-between items-center shadow-[0_4px_10px_rgba(0,0,0,0.15)] ${
+        i18n.language === "fa" ? "text-right" : "text-left"
+      }`}
+    >
       <div className="flex flex-col gap-2">
-        <div className="flex gap-2 bg-gray-blue px-2.5 py-4 w-fit rounded-[50px]">
+        <div className="flex items-center gap-2 bg-gray-blue px-3 py-3 w-fit rounded-[50px]">
           <LocationOnIcon />
-          <h2 className="gray-dark-2 ">{weatherData.name}</h2>
+          <h2 className="gray-dark-2">{cityName}</h2>
         </div>
-        <div className="flex flex-col items-start gap-4">
+
+        <div className="flex flex-col gap-3">
           <div>
             <p className="font-medium text-[32px]">{formattedDay}</p>
-            <p className="text-sm">
-              {formattedDate} <span className="ml-5">{formattedTime}</span>
+            <p className="text-sm flex items-center gap-2">
+              {formattedDate}{" "}
+              <span>
+                {formattedTime} {i18n.language === "fa" && period}
+              </span>
             </p>
           </div>
+
           <div>
             <h3 className="font-medium text-[32px]">
               {Math.round(weatherData.main.temp)}°C
             </h3>
             <p className="text-sm">
-              High: {Math.round(weatherData.main.temp_max)}° Low:{" "}
-              {Math.round(weatherData.main.temp_min)}°
+              {i18n.language === "fa"
+                ? `بیشینه: ${Math.round(
+                    weatherData.main.temp_max
+                  )}°  کمینه: ${Math.round(weatherData.main.temp_min)}°`
+                : `High: ${Math.round(
+                    weatherData.main.temp_max
+                  )}°  Low: ${Math.round(weatherData.main.temp_min)}°`}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col justify-evenly">
-        <div className="flex items-center gap-2 ">
+      <div className="flex flex-col items-center justify-evenly text-center">
+        <div className="flex items-center justify-center">
           {getWeatherIcon(
             weatherData.weather[0].main,
             weatherData.weather[0].description
           )}
         </div>
         <div>
-          <p className="text-[32px]">{weatherData.weather[0].main}</p>
-          <p>Feels Like {Math.round(weatherData.main.feels_like)}</p>
+          <p className="text-[32px]">{weatherMain}</p>
+          <p>
+            {i18n.language === "fa"
+              ? `${Math.round(weatherData.main.feels_like)}° ${t("FeelsLike")}`
+              : `${t("FeelsLike")} ${Math.round(weatherData.main.feels_like)}°`}
+          </p>
         </div>
       </div>
     </div>
