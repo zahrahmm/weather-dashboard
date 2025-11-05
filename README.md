@@ -35,10 +35,11 @@ cd weather-dashboard
 
 ---
 
+- Run: `pnpm install` then `pnpm run dev` (or `pnpm run build` for production).
+
 ## Create a .env file in the root of project and add OpenWeather API key:
 
 VITE_OPENWEATHER_API_KEY=6202fc8475da4154f30e341cf4f77c1a
-```
 
 ---
 
@@ -47,3 +48,4 @@ VITE_OPENWEATHER_API_KEY=6202fc8475da4154f30e341cf4f77c1a
 ## View on Vercel
 
 https://weather-dashboard-sepia-nine.vercel.app
+```
